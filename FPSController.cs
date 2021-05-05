@@ -35,9 +35,15 @@ public class FPSController : MonoBehaviour {
     private Vector3 moveDirection = Vector3.zero;
     private float rotationX = 0;
 
+    // FPS Controller
+    //
+
+    private FPSUIManager uiManager;
+
 
     void Start() {
         characterController = GetComponent<CharacterController>();
+        uiManager = GetComponent<FPSUIManager>();
 
         // Lock cursor
         Cursor.lockState = CursorLockMode.Locked;
