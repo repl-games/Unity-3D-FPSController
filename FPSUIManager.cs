@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class FPSUIManager : MonoBehaviour {
@@ -12,7 +13,6 @@ public class FPSUIManager : MonoBehaviour {
   public TMP_Text objectNameHover;
 
   void Start() {
-    objectNameHover.SetText("Default");
   }
 
   void Awake() {
@@ -22,7 +22,15 @@ public class FPSUIManager : MonoBehaviour {
     }
   }
 
-  public void UpdateCursor(string name) {
+  public void UpdateObjectNameText(string name) {
     objectNameHover.SetText(name);
+  }
+
+  public void ObjectFocus() {
+    cameraAim.GetComponent<Image>().sprite = cursorAim;
+  }
+
+  public void ObjectUnfocus() {
+    cameraAim.GetComponent<Image>().sprite = cursor;
   }
 }
