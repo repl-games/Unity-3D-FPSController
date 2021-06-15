@@ -13,7 +13,7 @@ public class FPSFootSteps : MonoBehaviour {
     terrainDetector = new TerrainDetector();
   }
 
-  public void Step() {
+  public void PlayStepClip() {
     audioSource.PlayOneShot(GetStepClip());
   }
 

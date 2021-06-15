@@ -51,10 +51,12 @@ public class FPSController : MonoBehaviour {
     // FPS Controller
     //
     private FPSUIManager uiManager;
+    private FPSFootSteps footSteps;
 
     void Start() {
         characterController = GetComponent<CharacterController>();
         uiManager = GetComponent<FPSUIManager>();
+        footSteps = GetComponent<FPSFootSteps>();
 
         // Lock cursor
         Cursor.lockState = CursorLockMode.Locked;
@@ -111,6 +113,9 @@ public class FPSController : MonoBehaviour {
 
         // Move the controller
         characterController.Move(moveDirection * Time.deltaTime);
+        if (moveDirection != Vector2.zero) {
+          footSteps.PlayStepClip();
+        }
 
         // Player and Camera rotation
         float cameraMoveSpeed = lookSpeed;
