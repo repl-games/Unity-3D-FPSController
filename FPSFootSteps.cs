@@ -8,13 +8,26 @@ public class FPSFootSteps : MonoBehaviour {
   private AudioSource audioSource;
   private TerrainDetector terrainDetector;
 
+  private bool playClipCooldown = false;
+  private float walkStepInterval = 0.6f;
+  private float runStepInterval = 0.4f;
+
   void Awake() {
     audioSource = GetComponent<AudioSource>();
     terrainDetector = new TerrainDetector();
   }
 
-  public void PlayStepClip() {
-    audioSource.PlayOneShot(GetStepClip());
+  public void Step(bool isRunning) {
+    if (!playClipCooldown) {
+      float stepInterval = walkStepInterval;
+      if (isRunning) {
+        stepInterval = runStepInterval;
+      }
+
+      playClipCooldown = true;
+      audioSource.PlayOneShot(GetStepClip());
+      StartCoroutine(Utilities.DoAfter(stepInterval, ()=> playClipCooldown = false));
+    }
   }
 
   private AudioClip GetStepClip() {
@@ -23,7 +36,7 @@ public class FPSFootSteps : MonoBehaviour {
     int terrainTextureIndex = terrainDetector.GetActiveTerrainTextureIdx(transform.position);
 
     switch(terrainTextureIndex) {
-      case 0:
+      case 0: // grass
         return grassSteps[UnityEngine.Random.Range(0, grassSteps.Length)];
       default:
         return grassSteps[UnityEngine.Random.Range(0, grassSteps.Length)];

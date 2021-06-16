@@ -106,6 +106,10 @@ public class FPSController : MonoBehaviour {
             moveDirection.y = movementDirectionY;
         }
 
+        if (characterController.isGrounded && (moveDirection.x != 0 || moveDirection.z != 0)) {
+          footSteps.PlayStepClip(isRunning);
+        }
+
         // Apply some gravity
         if (!characterController.isGrounded) {
             moveDirection.y -= gravity * Time.deltaTime;
@@ -113,10 +117,6 @@ public class FPSController : MonoBehaviour {
 
         // Move the controller
         characterController.Move(moveDirection * Time.deltaTime);
-
-        if (characterController.isGrounded && moveDirection != Vector3.zero) {
-          footSteps.PlayStepClip();
-        }
 
         // Player and Camera rotation
         float cameraMoveSpeed = lookSpeed;
