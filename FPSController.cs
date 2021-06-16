@@ -113,7 +113,7 @@ public class FPSController : MonoBehaviour {
 
         // Move the controller
         characterController.Move(moveDirection * Time.deltaTime);
-        if (moveDirection != Vector2.zero) {
+        if (moveDirection != Vector3.zero) {
           footSteps.PlayStepClip();
         }
 
