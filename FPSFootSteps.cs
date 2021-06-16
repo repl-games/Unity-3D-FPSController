@@ -26,6 +26,7 @@ public class FPSFootSteps : MonoBehaviour {
 
       playClipCooldown = true;
       audioSource.PlayOneShot(GetStepClip());
+      // NOTE: Utilities.DoAfter is defined in: github.com/repl-games/Unity-DoAfter-CSharp
       StartCoroutine(Utilities.DoAfter(stepInterval, ()=> playClipCooldown = false));
     }
   }
