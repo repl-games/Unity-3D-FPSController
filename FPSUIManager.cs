@@ -12,6 +12,8 @@ public class FPSUIManager : MonoBehaviour {
   public GameObject cameraAim;
   public TMP_Text objectNameHover;
 
+  private bool gamePaused = false;
+
   void Start() {
   }
 
@@ -20,6 +22,18 @@ public class FPSUIManager : MonoBehaviour {
     if (cameraAim == null) {
       Debug.LogError("cameraAim UI canvas object must be set");
     }
+  }
+
+  public void PauseGame() {
+    Time.timeScale = 0;
+    gamePaused = true;
+    // Enable menu UI
+  }
+
+  public void UnpauseGame() {
+    // Disable menu UI
+    Time.timeScale = 1;
+    gamePaused = false;
   }
 
   public void UpdateObjectNameText(string name) {

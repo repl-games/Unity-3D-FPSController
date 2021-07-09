@@ -39,6 +39,8 @@ public class FPSController : MonoBehaviour {
 
     private bool cameraToggle = false;
 
+    private bool gamePaused = false;
+
     // Movement
     private Vector3 moveDirection = Vector3.zero;
     private float rotationX = 0;
@@ -64,6 +66,7 @@ public class FPSController : MonoBehaviour {
     }
 
     void Update() {
+      TogglePauseMenu();
       PlayerMove();
       ToggleCamera();
     }
@@ -73,6 +76,18 @@ public class FPSController : MonoBehaviour {
 
     // Private Functions
     //
+
+    private void TogglePauseMenu() {
+      if (Input.GetKeyDown(KeyCode.Escape)) {
+        if (!gamePaused) {
+          gamePaused = true;
+          uiManager.PauseGame();
+        } else {
+          gamePaused = false;
+          uiManager.UnpauseGame();
+        }
+      }
+    }
 
     private void PlayerMove() {
         // We are grounded, so recalculate move direction based on axes
@@ -86,6 +101,9 @@ public class FPSController : MonoBehaviour {
         float curSpeedX = 0f;
         float curSpeedY = 0f;
         float playerSpeed = 0f;
+
+        // Can't move during paused game
+        canMove = !gamePaused;
 
         if (canMove) {
           if (isRunning) {
